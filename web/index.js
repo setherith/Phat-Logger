@@ -1,15 +1,15 @@
 var express = require('express');
 var mysql = require('mysql');
-var jade = require('jade');
+var jade = require('pug');
 
 var app = express();
 
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 app.use('/public', express.static(__dirname + '/public'));
 
 app.get('/', function (req, res) {
-	res.render('index.jade');
+	res.render('index.pug');
 });
 
 app.listen(3000, function() {
