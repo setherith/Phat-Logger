@@ -1,0 +1,30 @@
+{
+  "name": "phat-logger",
+  "version": "1.0.0",
+  "description": "A display module for the logger",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/setherith/phat-logger.git"
+  },
+  "keywords": [
+    "logger",
+    "node",
+    "pHAT",
+    "Raspberry",
+    "Pi"
+  ],
+  "author": "Shane Pudner",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/setherith/phat-logger/issues"
+  },
+  "dependencies": {
+    "express": "^4.15.2",
+    "jade": "^1.11.0",
+    "mysql": "^2.13.0"
+  }
+}
