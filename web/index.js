@@ -7,6 +7,7 @@ var app = express();
 app.set('view engine', 'pug');
 
 app.use('/public', express.static(__dirname + '/public'));
+app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist'));
 
 app.get('/', function (req, res) {
 	res.render('index.pug');
