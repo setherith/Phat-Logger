@@ -5,6 +5,7 @@ html
 		link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
 		script(src='/jquery/jquery.min.js')
 		script(src='/bootstrap/js/bootstrap.min.js')
+		script(src='/chart/Chart.min.js')
 	body
 		div.container
 			div.row.col-md-10.col-md-offset-1
@@ -16,6 +17,11 @@ html
 					div.form-group
 						label Log:
 						textarea.form-control(style="height: 300px; font-family: Courier") #{rows}
-			
+
 		div.row.col-md-10.col-md-offset-1(style="border: 1 solid black")
 			a(href="https://shop.pimoroni.com/products/enviro-phat") Where do I get one?
+		
+		script
+			document .raw = #{raw};
+
+		include chart.js
