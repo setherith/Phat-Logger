@@ -3,12 +3,19 @@ html
 	head
 		title pHAT Log
 		link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
+		script(src='/jquery/jquery.min.js')
 		script(src='/bootstrap/js/bootstrap.min.js')
 	body
 		div.container
-			h1 pHAT
-			div.row.col-md-2.col-md-offset-1
-				img(src='/public/images/en-phat.png', style="height: 150px;")
+			div.row.col-md-10.col-md-offset-1
+				div#header(style="text-align: center;")
+					h3 Enviro pHAT - Status
+					img(src='/public/images/en-phat.png', style="height: 150px;")
+
+				form(style="margin-top: 20px;")
+					div.form-group
+						label Output:
+						textarea.form-control(style="height: 300px; font-family: Courier")
 			
-		div.row.col-md-12#footer(style="padding-left: 20px;")
-		a(href="https://shop.pimoroni.com/products/enviro-phat") Shop
+		div.row.col-md-10.col-md-offset-1(style="border: 1 solid black")
+			a(href="https://shop.pimoroni.com/products/enviro-phat") Where do I get one?
