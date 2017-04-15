@@ -22,12 +22,16 @@ app.get('/', function (req, res) {
 	conn.query('select * from log', function(err, rows) {
 		if (err) console.log(err);
 		var output = '';
-		var raw = '[';
+		var values = '[';
+		var labels = '[';
 		rows.forEach(function(r) {
 			output += r['datetime'] + ':' + r['value'] + '\n';
-			raw += r['value'] + ', ';
+			values += r['value'] + ', ';
+			labels += "'" + r['datetime'] + "', ";
 		});
-		res.render('index.pug', { 'rows': output, 'raw': raw + ']' });
+		res.render('index.pug', { 'rows': output, 
+					'values': values + ']',
+				 	'labels': labels + ']' });
 	});
 });
 
