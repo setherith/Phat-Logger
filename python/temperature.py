@@ -11,6 +11,6 @@ while(True):
 	temp = weather.temperature()
 	print("Logging: " + '%.5f' % temp)
 	cur.execute('call log(' + '%.5f' % temp + ')')
-	time.sleep(10)
+	time.sleep(60)
 cur.close()
 conn.close()
