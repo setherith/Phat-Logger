@@ -13,26 +13,21 @@ html
 					h3 Enviro pHAT - Status
 					img(src='/public/images/en-phat.png', style="height: 150px;")
 
-				form(style="margin-top: 20px;")
-					div.form-group
-						label Log:
-						textarea.form-control(style="height: 300px; font-family: Courier") #{rows}
+				div(class="row col-md-10 col-md-offset-1")
+					canvas(id="myChart" width="100" height="50")
 
 		div.row.col-md-10.col-md-offset-1(style="border: 1 solid black")
 			a(href="https://shop.pimoroni.com/products/enviro-phat") Where do I get one?
 		
-		div(class="row col-md-12")
-			canvas(id="myChart" width="100" height="15")
-
 	script.
 		var data = {
-			labels: #{labels},
+			labels: [#{labels}],
 			datasets: [
 				{
 					label: "Temperature (C)",
 					fill: false,
 					backgroundColor: "rgba(75,192,192,0.4)",
-					data: #{values},
+					data: [#{values}],
 					spanGaps: false
 				}
 			]

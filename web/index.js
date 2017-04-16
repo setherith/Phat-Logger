@@ -21,17 +21,13 @@ app.use('/chart', express.static(__dirname + '/node_modules/chart.js/dist'));
 app.get('/', function (req, res) {
 	conn.query('select * from log where datetime > sysdate() - interval 30 minute', function(err, rows) {
 		if (err) console.log(err);
-		var output = '';
-		var values = '[';
-		var labels = '[';
+		var values = '';
+		var labels = '';
 		rows.forEach(function(r) {
-			output += r['datetime'] + ':' + r['value'] + '\n';
 			values += r['value'] + ', ';
 			labels += "'" + toDate(r['datetime']) + "', ";
 		});
-		res.render('index.pug', { 'rows': output, 
-					'values': values + ']',
-				 	'labels': labels + ']' });
+		res.render('index.pug', { 'values': values, 'labels': labels });
 	});
 });
 
