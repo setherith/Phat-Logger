@@ -19,7 +19,7 @@ app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/chart', express.static(__dirname + '/node_modules/chart.js/dist'));
 
 app.get('/', function (req, res) {
-	conn.query('select * from log where datetime > sysdate() - interval 30 minute', function(err, rows) {
+	conn.query('select * from log', function(err, rows) { // where datetime > sysdate() - interval 30 minute
 		if (err) console.log(err);
 		var pressures = '';
 		var temperatures = '';
