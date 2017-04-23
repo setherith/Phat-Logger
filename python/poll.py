@@ -12,8 +12,8 @@ seconds = float(input("How many seconds beween polls? "))
 
 try:
 	while(True):
-		temp = '%.2f' % weather.temperature()
-		pres = '%.2f' % weather.pressure()
+		temp = '%.1f' % weather.temperature()
+		pres = '%.1f' % weather.pressure()
 		print("Time / Date: " + str(datetime.now()))
 		print("Temperature: " + temp)
 		print("Pressure: " + pres)
@@ -22,7 +22,7 @@ try:
 		print("===============================================================")
 		time.sleep(seconds)
 except KeyboardInterrupt:
-	print("Cleaning up...");
+	print("Cleaning up...")
 	cur.close()
 	conn.close()
 	print("Exiting...")
