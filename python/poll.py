@@ -1,29 +1,38 @@
-from envirophat import weather
-from datetime import datetime
+"""
+Written By: Shane Pudner
+Date: 23/04/2017
+A module to log the pressure and temperature of the Enviro-pHAT
+"""
+
 import time
+from datetime import datetime
+
 import pymysql
+from envirophat import weather
 
-conn = pymysql.connect(host='localhost', database='phat-logger', user='phat_user', passwd='phat_user')
-conn.autocommit(True)
+CONN = pymysql.connect(host='localhost', \
+				database='phat-logger', \
+				user='phat_user', \
+				passwd='phat_user')
+CONN.autocommit(True)
 
-cur = conn.cursor()
+CUR = CONN.cursor()
 
-seconds = float(input("How many seconds beween polls? "))
+SECONDS = float(input("How many seconds beween polls? "))
 
 try:
-	while(True):
-		temp = '%.1f' % weather.temperature()
-		pres = '%.1f' % weather.pressure()
-		print("Time / Date: " + str(datetime.now()))
-		print("Temperature: " + temp)
-		print("Pressure: " + pres)
-		cur.execute('call log(' + temp + ', ' + pres +')')
-		print("Logged...", "\t\t (Ctrl + C to Exit)")
-		print("===============================================================")
-		time.sleep(seconds)
+    while True:
+        TEMP = '%.1f' % weather.temperature()
+        PRES = '%.1f' % (weather.pressure() / 100) # Converts to hPa
+        print("Time / Date: " + str(datetime.now()))
+        print("Temperature: " + TEMP)
+        print("Pressure: " + PRES)
+        CUR.execute('call log(' + TEMP + ', ' + PRES +')')
+        print("Logged...", "\t\t (Ctrl + C to Exit)")
+        print("===============================================================")
+        time.sleep(SECONDS)
 except KeyboardInterrupt:
-	print("Cleaning up...")
-	cur.close()
-	conn.close()
-	print("Exiting...")
-
+    print("Cleaning up...")
+    CUR.close()
+    CONN.close()
+    print("Exiting...")
