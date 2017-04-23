@@ -19,15 +19,17 @@ app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/chart', express.static(__dirname + '/node_modules/chart.js/dist'));
 
 app.get('/', function (req, res) {
-	conn.query('select * from log where datetime > sysdate() - interval 30 minute', function(err, rows) {
+	conn.query('select * from log where datetime', function(err, rows) {
 		if (err) console.log(err);
-		var values = '';
+		var pressures = '';
+		var temperatures = '';
 		var labels = '';
 		rows.forEach(function(r) {
-			values += r['value'] + ', ';
+			pressures += r['pres'] + ', ';
+			temperatures += r['temp'] + ', ';
 			labels += "'" + toDate(r['datetime']) + "', ";
 		});
-		res.render('index.pug', { 'values': values, 'labels': labels });
+		res.render('index.pug', { 'temperatures': temperatures, 'pressures': pressures, 'labels': labels });
 	});
 });
 
