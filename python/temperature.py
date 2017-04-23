@@ -1,4 +1,5 @@
 from envirophat import weather
+from datetime import datetime
 import time
 import pymysql
 
@@ -7,10 +8,22 @@ conn.autocommit(True)
 
 cur = conn.cursor()
 
-while(True):
-	temp = weather.temperature()
-	print("Logging: " + '%.5f' % temp)
-	cur.execute('call log(' + '%.5f' % temp + ')')
-	time.sleep(60)
-cur.close()
-conn.close()
+seconds = float(input("How many seconds beween polls? "))
+
+try:
+	while(True):
+		temp = '%.2f' % weather.temperature()
+		pres = '%.2f' % weather.pressure()
+		print("Time / Date: " + str(datetime.now()))
+		print("Temperature: " + temp)
+		print("Pressure: " + pres)
+		# cur.execute('call log(' + temp + ', ' + pres +')')
+		print("Logged...", "\t\t (Ctrl + C to Exit)")
+		print("===============================================================")
+		time.sleep(seconds)
+except KeyboardInterrupt:
+	print("Cleaning up...");
+	cur.close()
+	conn.close()
+	print("Exiting...")
+
