@@ -17,7 +17,7 @@ try:
 		print("Time / Date: " + str(datetime.now()))
 		print("Temperature: " + temp)
 		print("Pressure: " + pres)
-		# cur.execute('call log(' + temp + ', ' + pres +')')
+		cur.execute('call log(' + temp + ', ' + pres +')')
 		print("Logged...", "\t\t (Ctrl + C to Exit)")
 		print("===============================================================")
 		time.sleep(seconds)
