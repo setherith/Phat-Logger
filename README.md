@@ -7,7 +7,7 @@ A Node server will pick up the values and use Chart.js to present the content on
 
 When you have the code working correctly it should look like this:
 
-![alt text](https://github.com/setherith/phat-logger/artwork/publish/showcase.png "Results Screen")
+![alt text](https://github.com/setherith/Phat-Logger/blob/master/artwork/publish/showcase.png "Results Screen")
 
 Code
 ----
