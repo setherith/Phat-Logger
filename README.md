@@ -15,11 +15,13 @@ Code
 - Display written in Node / Express / Jade
 - Test logging function written in Java
 
-Deploy
-------
+Deploy (Linux)
+--------------
 - Clone Git (git clone https://github.com/setherith/phat-logger.git)
 - Install MySql Server (sudo apt-get install mysql-server)
 - Deploy script (mysql -u root -p < phat-logger\ setup.sql)
-- Test: Run Jar (java -jar phat-logger-v1.0.jar)
 - Install Python libraries (sudo pip3 install envirophat)
-- Run: python3 /python/poll.py
+- Start polling for data (python3 /python/poll.py)
+- Install web app (cd web/ | npm install | node)
+
+I haven't had a chance to test the deployment yet, so any issues please send me a message :)
