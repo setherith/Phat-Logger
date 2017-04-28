@@ -1,15 +1,8 @@
 var express = require('express');
-var mysql = require('mysql');
+var db = require('./database.js');
 var jade = require('pug');
 
 var app = express();
-
-var conn = mysql.createPool({
-	host: "localhost",
-	user: "phat_user",
-	password: "phat_user",
-	database: "phat-logger"
-});
 
 app.set('view engine', 'pug');
 
@@ -19,29 +12,12 @@ app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/chart', express.static(__dirname + '/node_modules/chart.js/dist'));
 
 app.get('/', function (req, res) {
-	conn.query('select * from log', function(err, rows) { // where datetime > sysdate() - interval 30 minute
-		if (err) console.log(err);
-		var pressures = '';
-		var temperatures = '';
-		var labels = '';
-		rows.forEach(function(r) {
-			pressures += r['pres'] + ', ';
-			temperatures += r['temp'] + ', ';
-			labels += "'" + toDate(r['datetime']) + "', ";
-		});
-		res.render('index.pug', { 'temperatures': temperatures, 'pressures': pressures, 'labels': labels });
+	var results = db.getEverything(function(results) {
+		console.log(results);
+		res.render('index.pug', results);
 	});
 });
 
 app.listen(3000, function() {
 	console.log('Web App started @ ' + new Date() + '\nConnect -> localhost:3000');
 });
-
-function toDate(dbdate) {
-	var date = new Date(dbdate);
-	var hour = date.getHours();
-	var min = date.getMinutes();
-	if (hour.toString().length < 2) hour = '0' + hour;
-	if (min.toString().length < 2) min = '0' + min;
-	return hour + ':' + min;
-}
