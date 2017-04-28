@@ -13,7 +13,6 @@ app.use('/chart', express.static(__dirname + '/node_modules/chart.js/dist'));
 
 app.get('/', function (req, res) {
 	var results = db.getEverything(function(results) {
-		console.log(results);
 		res.render('index.pug', results);
 	});
 });
