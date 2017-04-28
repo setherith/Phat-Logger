@@ -4,7 +4,7 @@ var jade = require('pug');
 
 var app = express();
 
-var conn = mysql.createConnection({
+var conn = mysql.createPool({
 	host: "localhost",
 	user: "phat_user",
 	password: "phat_user",
