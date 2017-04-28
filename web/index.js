@@ -12,8 +12,15 @@ app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/chart', express.static(__dirname + '/node_modules/chart.js/dist'));
 
 app.get('/', function (req, res) {
-	var results = db.getEverything(function(results) {
+	db.getEverything(function(results) {
 		res.render('index.pug', results);
+	});
+});
+
+app.get('/average', function(req, res) {
+	db.getDateRange(function(dates) {
+		console.log(dates);
+		res.end();
 	});
 });
 

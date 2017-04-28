@@ -8,7 +8,6 @@ var conn = mysql.createPool({
 });
 
 module.exports.getEverything = function(callback) {
-    console.log(callback);
     conn.query('select * from log', function(err, rows) { // where datetime > sysdate() - interval 30 minute
 		if (err) console.log(err);
 		var pressures = '';
@@ -21,6 +20,31 @@ module.exports.getEverything = function(callback) {
 		});
 		callback({ 'temperatures': temperatures, 'pressures': pressures, 'labels': labels });
 	});
+};
+
+module.exports.getEarliestDate = function(callback) {
+    conn.query('select min(datetime) as `min` from log', function(err, rows) {
+        if (err) console.log(err);
+        callback(new Date(rows[0]['min']));
+    });
+};
+
+module.exports.getLatestDate = function(callback) {
+    conn.query('select max(datetime) as `max` from log', function(err, rows) {
+        if (err) console.log(err);
+        callback(new Date(rows[0]['max']));
+    });
+};
+
+module.exports.getDateRange = function(callback) {
+    conn.query('select date(datetime) as `date` from log group by day(datetime)', function(err, rows) {
+        if (err) console.log(err);
+        callback(rows);
+    });
+};
+
+module.exports.getAveragePerDay = function(callback) {
+
 };
 
 function toDate(dbdate) {
