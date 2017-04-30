@@ -22,6 +22,36 @@ module.exports.getEverything = function(callback) {
 	});
 };
 
+module.exports.getPastHours = function(hours, callback) {
+    conn.query('select * from log where datetime > sysdate() - interval ' + hours + ' hour', function(err, rows) {
+		if (err) console.log(err);
+		var pressures = '';
+		var temperatures = '';
+		var labels = '';
+		rows.forEach(function(r) {
+			pressures += r['pres'] + ', ';
+			temperatures += r['temp'] + ', ';
+			labels += "'" + toDate(r['datetime']) + "', ";
+		});
+		callback({ 'temperatures': temperatures, 'pressures': pressures, 'labels': labels });
+	});
+};
+
+module.exports.getPastDay = function(callback) {
+    conn.query('select * from log where datetime > sysdate() - interval 24 hour', function(err, rows) {
+		if (err) console.log(err);
+		var pressures = '';
+		var temperatures = '';
+		var labels = '';
+		rows.forEach(function(r) {
+			pressures += r['pres'] + ', ';
+			temperatures += r['temp'] + ', ';
+			labels += "'" + toDate(r['datetime']) + "', ";
+		});
+		callback({ 'temperatures': temperatures, 'pressures': pressures, 'labels': labels });
+	});
+};
+
 module.exports.getEarliestDate = function(callback) {
     conn.query('select min(datetime) as `min` from log', function(err, rows) {
         if (err) console.log(err);
@@ -43,8 +73,11 @@ module.exports.getDateRange = function(callback) {
     });
 };
 
-module.exports.getAveragePerDay = function(callback) {
-
+module.exports.getAveragePerDay = function(day, callback) {
+	conn.query('select avg(temp) from log where day(datetime) = day(' + new Date(day) + ')', function(err, rows) {
+		if (err) console.log(err);
+		callback(rows);
+	});
 };
 
 function toDate(dbdate) {

@@ -12,14 +12,18 @@ app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/chart', express.static(__dirname + '/node_modules/chart.js/dist'));
 
 app.get('/', function (req, res) {
-	db.getEverything(function(results) {
+	db.getPastHours(3, function(results) {
 		res.render('index.pug', results);
 	});
 });
 
 app.get('/average', function(req, res) {
 	db.getDateRange(function(dates) {
-		console.log(dates);
+		dates.forEach(function(date) {
+			db.getAveragePerDay(date, function(avg) {
+				console.log(avg);
+			});
+		});
 		res.end();
 	});
 });
