@@ -22,6 +22,20 @@ module.exports.getEverything = function(callback) {
 	});
 };
 
+module.exports.avgTemps = function(callback) {
+    conn.query('select avg(temp), min(temp), max(temp), count(*), date(datetime) from log group by day(datetime) order by datetime', function(err, rows) {
+		if (err) console.log(err);
+		callback(rows);
+	});
+};
+
+module.exports.avgPres = function(callback) {
+    conn.query('select avg(pres), min(pres), max(pres), count(*), date(datetime) from log group by day(datetime) order by datetime', function(err, rows) {
+		if (err) console.log(err);
+		callback(rows);
+	});
+};
+
 module.exports.getPastHours = function(hours, callback) {
     conn.query('select * from log where datetime > sysdate() - interval ' + hours + ' hour', function(err, rows) {
 		if (err) console.log(err);

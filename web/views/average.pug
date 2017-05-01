@@ -1,0 +1,60 @@
+doctype html
+html
+	head
+		title pHAT Logger
+		link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
+		script(src='/jquery/jquery.min.js')
+		script(src='/bootstrap/js/bootstrap.min.js')
+		script(src='/chart/Chart.min.js')
+	body
+		div.container
+			div.row.col-md-10.col-md-offset-1
+				div#header(style="text-align: center;")
+					h1 Enviro pHAT
+					img(src='/public/images/en-phat.png' style="height: 150px;")
+
+				div(class="row col-md-12" style="margin-top: 20px;")
+					h3 Temperatures
+					table(class="table-striped" width="100%")
+						thead
+							tr
+								th Average
+								th Minimum
+								th Maximum
+								th No. Readings
+								th Date
+						tbody
+						each val in temp
+							tr
+								td=val['avg(temp)']
+								td=val['min(temp)']
+								td=val['max(temp)']
+								td=val['count(*)']
+								td=val['date(datetime)']
+
+				div(class="row col-md-12" style="margin-top: 20px;")
+					h3 Pressures
+					table(class="table-striped" width="100%")
+						thead
+							tr
+								th Average
+								th Minimum
+								th Maximum
+								th No. Readings
+								th Date
+						tbody
+						each val in pres
+							tr
+								td=val['avg(pres)']
+								td=val['min(pres)']
+								td=val['max(pres)']
+								td=val['count(*)']
+								td=val['date(datetime)']
+				
+
+		footer(style="text-align: center; margin-top: 30px;")
+			a(href="https://shop.pimoroni.com/products/enviro-phat") Where do I get one?
+			span  | 
+			a(href="https://github.com/setherith/Phat-Logger") About this project
+			span  | 
+			a(href="http://www.loveofcode.co.uk/about-me/") About me

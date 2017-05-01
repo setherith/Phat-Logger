@@ -18,13 +18,10 @@ app.get('/', function (req, res) {
 });
 
 app.get('/average', function(req, res) {
-	db.getDateRange(function(dates) {
-		dates.forEach(function(date) {
-			db.getAveragePerDay(date, function(avg) {
-				console.log(avg);
-			});
+	db.avgTemps(function(temp) {
+		db.avgPres(function(pres) {
+			res.render('average.pug', {'temp': temp, 'pres': pres});
 		});
-		res.end();
 	});
 });
 
